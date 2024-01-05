@@ -43,7 +43,11 @@ fun NavGraph() {
             SignUpPasswordView(
                 onSignedUp = {
                     val email = checkNotNull(navArgs.getString("email"))
-                    navController.navigate("home/$email")
+                    navController.navigate("home/$email") {
+                        popUpTo("login") {
+                            inclusive = true
+                        }
+                    }
                 },
                 onBack = {
                     navController.popBackStack()
@@ -57,7 +61,7 @@ fun NavGraph() {
                 email = checkNotNull(navArgs.getString("email")),
                 onLogout = {
                     navController.navigate("login") {
-                        popUpTo("home") {
+                        popUpTo("home/{email}") {
                             inclusive = true
                         }
                     }
